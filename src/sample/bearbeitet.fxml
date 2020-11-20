@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="14.0" layoutY="79.0" promptText="Bearbeiter ID" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="79.0" />
+      <TextField layoutX="14.0" layoutY="45.0" promptText="Bearbeiter Name" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="45.0" />
+      <TextField layoutX="14.0" layoutY="113.0" promptText="ToDo Name" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="113.0" />
+      <TextField layoutX="14.0" layoutY="146.0" promptText="ToDo ID" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="146.0" />
+      <TextField layoutX="14.0" layoutY="179.0" promptText="Arbeitszeiten" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="179.0" />
+   </children>
+</AnchorPane>
