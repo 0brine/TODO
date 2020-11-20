@@ -16,4 +16,3 @@
       <Button layoutX="246.0" layoutY="245.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Bearbeiten" />
    </children>
 </AnchorPane>
-

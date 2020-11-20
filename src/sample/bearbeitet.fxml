@@ -12,4 +12,3 @@
       <TextField layoutX="14.0" layoutY="179.0" promptText="Arbeitszeiten" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="179.0" />
    </children>
 </AnchorPane>
-
