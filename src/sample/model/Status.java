@@ -50,7 +50,7 @@ public class Status {
         AbstractDatabase conn = new MySQLConnector("db0345764", "5AHEL2021", "rathgeb.at", 3306, "db0345764");
 
         try {
-            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT  * FROM gr2_PRIORITAET");
+            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT  * FROM gr8_STATUS");
 
             ResultSet results = statement.executeQuery();
 

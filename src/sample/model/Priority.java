@@ -47,7 +47,7 @@ public class Priority {
 
         AbstractDatabase conn = new MySQLConnector("d0345764", "5AHEL2021", "rathgeb.at", 3306, "d0345764");
         try {
-            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT  * FROM gr2_PRIORITAET");
+            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT  * FROM gr8_PRIORITY");
 
             ResultSet results = statement.executeQuery();
 
