@@ -35,7 +35,6 @@ public class PriorityController {
 
 
     public void savedClicked(ActionEvent actionEvent) {
-        AbstractDatabase conn = Constants.getConn();
         String name = nameTextField.getText();
 
         if (selectedItem != null) {
@@ -52,7 +51,6 @@ public class PriorityController {
     }
 
     public void deleteClicked(ActionEvent actionEvent) {
-        AbstractDatabase conn = Constants.getConn();
 
         if (selectedItem != null){
             selectedItem.deleteItem();
