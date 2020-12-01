@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import sample.model.Priority;
 import sample.model.Status;
 
-public class StatusController<s> {
+public class StatusController {
 
     public TextField nameTextField;
     public ListView<Status> statusListView;
