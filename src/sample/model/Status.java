@@ -47,15 +47,15 @@ public class Status {
     public static ObservableList<Status> getList(){
         ObservableList<Status> list = FXCollections.observableArrayList();
 
-        AbstractDatabase conn = new MySQLConnector("db0345764", "5AHEL2021", "rathgeb.at", 3306, "db0345764");
+        AbstractDatabase conn = new MySQLConnector("d0345764", "5AHEL2021", "rathgeb.at", 3306, "d0345764");
 
         try {
-            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT  * FROM gr8_STATUS");
+            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT  * FROM gr8_Status");
 
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
-                Status tmp = new Status(results.getInt("Status_id"), results.getString("NAME"));
+                Status tmp = new Status(results.getInt("Status_id"), results.getString("name"));
 
                 list.add(tmp);
             }

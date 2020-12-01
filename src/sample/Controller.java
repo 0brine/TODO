@@ -13,14 +13,14 @@ public class Controller {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("Status.fxml"));
+            Stage s = new Stage();
+
+            s.setTitle("Status");
+            s.setScene(new Scene(root));
+            s.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Stage s = new Stage();
-
-        s.setTitle("Status");
-        s.setScene(new Scene(root));
-        s.show();
     }
 
     public void onPriorityClicked(ActionEvent actionEvent) {

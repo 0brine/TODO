@@ -12,6 +12,7 @@ public class PriorityController {
     public TextField name;
     public Button add;
     public ListView<Priority> list;
+
     private Priority selectedItem = null;
 
     public void initialize() {
