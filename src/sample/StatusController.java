@@ -42,6 +42,7 @@ public class StatusController<s> {
     public void deleteClicked(ActionEvent actionEvent) {
         if (selectedItem != null){
             //delete Item
+
         }
     }
 
