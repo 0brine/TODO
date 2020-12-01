@@ -13,6 +13,10 @@ public class StatusController {
     public Status selectedItem = null;
 
     public void initialize() {
+        refreshList();
+    }
+
+    private void refreshList() {
         statusListView.setItems(Status.getList());
     }
 
@@ -35,6 +39,7 @@ public class StatusController {
             //insert new
             selectedItem.createNew(name);
         }
+        refreshList();
     }
 
     public void cancelClicked(ActionEvent actionEvent) {
@@ -47,6 +52,7 @@ public class StatusController {
             //delete Item
             selectedItem.deleteItem();
         }
+        refreshList();
     }
 
     public void newClicked(ActionEvent actionEvent) {
