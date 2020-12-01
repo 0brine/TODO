@@ -64,5 +64,4 @@ public class PriorityController {
         priorityListView.getSelectionModel().clearSelection();
         selectedItem = null;
     }
-
 }
