@@ -26,28 +26,33 @@ public class StatusController {
 
 
     public void savedClicked(ActionEvent actionEvent) {
+        String name = nameTextField.getText();
+
         if (selectedItem != null) {
             //update existing item
+            selectedItem.rename(name);
         } else {
             //insert new
+            selectedItem.createNew(name);
         }
     }
 
     public void cancelClicked(ActionEvent actionEvent) {
         //close dialog
+
     }
 
     public void deleteClicked(ActionEvent actionEvent) {
         if (selectedItem != null){
             //delete Item
-
+            selectedItem.deleteItem();
         }
     }
 
     public void newClicked(ActionEvent actionEvent) {
         selectedItem = null;
         nameTextField.clear();
-        statusListView.setFocusModel(null);
+        statusListView.getSelectionModel().clearSelection();
     }
 
 }

@@ -2,6 +2,7 @@ package sample.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.Constants;
 import sample.model.db.AbstractDatabase;
 import sample.model.db.MySQLConnector;
 
@@ -65,4 +66,42 @@ public class Status {
 
         return list;
     }
+
+    public void rename(String name) {
+        AbstractDatabase conn = Constants.getConn();
+
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("UPDATE `gr8_Status` SET `name` = '" + name + "' WHERE `gr8_Status`.`status_id` = " + this.id + ";");
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteItem() {
+        AbstractDatabase conn = Constants.getConn();
+
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("DELETE FROM `gr8_Status` WHERE `gr8_Status`.`status_id` = " + this.id);
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createNew(String name) {
+        AbstractDatabase conn = Constants.getConn();
+
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("INSERT INTO `gr8_Status` (`name`) VALUES ('" + name + "')");
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
