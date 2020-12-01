@@ -1,47 +1,53 @@
 package sample;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import sample.model.Status;
 
 public class StatusController {
-    public ListView<Status> statusListView;
-    public TextField nameTextField;
-    public Button add;
 
-    private Status selectedItem = null;
+    public TextField nameTextField;
+    public ListView<Status> statusListView;
+    public Status selectedItem = null;
 
     public void initialize() {
-        ObservableList items = Status.getList();
-        statusListView.setItems(items);
+        statusListView.setItems(Status.getList());
     }
 
     public void itemSelected(MouseEvent mouseEvent) {
-        Status p = statusListView.getSelectionModel().getSelectedItem();
-
-        if (p != null) {
-            nameTextField.setText(p.getName());
-            selectedItem = p;
+        Status s = statusListView.getSelectionModel().getSelectedItem();
+        if (s != null) {
+            nameTextField.setText(s.getName());
+            selectedItem = s;
         }
     }
 
+
     public void savedClicked(ActionEvent actionEvent) {
-
-    }
-
-    public void newClicked(ActionEvent actionEvent) {
-
-    }
-
-    public void deleteClicked(ActionEvent actionEvent) {
-
+        if (selectedItem != null) {
+            //update existing item
+        } else {
+            //insert new
+        }
     }
 
     public void cancelClicked(ActionEvent actionEvent) {
-
+        //close dialog
     }
+
+    public void deleteClicked(ActionEvent actionEvent) {
+        if (selectedItem != null){
+            //delete Item
+
+        }
+    }
+
+    public void newClicked(ActionEvent actionEvent) {
+        selectedItem = null;
+        nameTextField.clear();
+        statusListView.setFocusModel(null);
+    }
+
 }
