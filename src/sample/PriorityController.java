@@ -4,50 +4,67 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import sample.model.Status;
+
+import javafx.scene.layout.AnchorPane;
+import sample.model.Priority;
+import sample.model.db.AbstractDatabase;
 
 public class PriorityController {
 
     public TextField nameTextField;
-    public ListView<Status> statusListView;
-    public Status selectedItem = null;
+    public ListView<Priority> priorityListView;
+    public Priority selectedItem = null;
+    public AnchorPane ap;
 
     public void initialize() {
-        statusListView.setItems(Status.getList());
+        refreshList();
+    }
+
+    private void refreshList() {
+        priorityListView.setItems(Priority.getList());
     }
 
     public void itemSelected(MouseEvent mouseEvent) {
-        Status s = statusListView.getSelectionModel().getSelectedItem();
-        if (s != null) {
-            nameTextField.setText(s.getName());
-            selectedItem = s;
+        Priority p = priorityListView.getSelectionModel().getSelectedItem();
+
+        if (p != null) {
+            nameTextField.setText(p.getName());
+            selectedItem = p;
         }
     }
 
 
     public void savedClicked(ActionEvent actionEvent) {
+        AbstractDatabase conn = Constants.getConn();
+        String name = nameTextField.getText();
+
         if (selectedItem != null) {
-            //update existing item
+            selectedItem.rename(name);
         } else {
-            //insert new
+            selectedItem.createNew(name);
         }
+
+        refreshList();
     }
 
     public void cancelClicked(ActionEvent actionEvent) {
-        //close dialog
+        //close
     }
 
     public void deleteClicked(ActionEvent actionEvent) {
-        if (selectedItem != null){
-            //delete Item
+        AbstractDatabase conn = Constants.getConn();
 
+        if (selectedItem != null){
+            selectedItem.deleteItem();
         }
+
+        refreshList();
     }
 
     public void newClicked(ActionEvent actionEvent) {
-        selectedItem = null;
         nameTextField.clear();
-        statusListView.setFocusModel(null);
+        priorityListView.getSelectionModel().clearSelection();
+        selectedItem = null;
     }
 
 }
