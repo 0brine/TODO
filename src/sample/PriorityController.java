@@ -7,7 +7,6 @@ import javafx.scene.input.MouseEvent;
 
 import javafx.scene.layout.AnchorPane;
 import sample.model.Priority;
-import sample.model.db.AbstractDatabase;
 
 public class PriorityController {
 
