@@ -3,6 +3,7 @@ package sample.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Constants;
+import sample.SQLs;
 import sample.model.db.AbstractDatabase;
 
 import java.sql.PreparedStatement;
@@ -13,15 +14,15 @@ public class ToDo {
     private int id;
     private String name;
     private String beschreibung;
-    private int status_id;
-    private int prioritaet_id;
+    private Status status;
+    private Priority priority;
 
     public ToDo(int id, String name, String beschreibung, int status_id, int prioritaet_id) {
         this.id = id;
         this.name = name;
         this.beschreibung = beschreibung;
-        this.status_id = status_id;
-        this.prioritaet_id = prioritaet_id;
+        this.status = SQLs.getStatus(status_id);
+        this.priority = SQLs.getPriority(prioritaet_id);
     }
 
     public static ObservableList<ToDo> getList() {
@@ -51,8 +52,8 @@ public class ToDo {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", beschreibung='" + beschreibung + '\'' +
-                ", status_id=" + status_id +
-                ", prioritaet_id=" + prioritaet_id +
+                ", status=" + status +
+                ", priority=" + priority +
                 '}';
     }
 
@@ -80,19 +81,19 @@ public class ToDo {
         this.beschreibung = beschreibung;
     }
 
-    public int getStatus_id() {
-        return status_id;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatus_id(int status_id) {
-        this.status_id = status_id;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public int getPrioritaet_id() {
-        return prioritaet_id;
+    public Priority getPriority() {
+        return priority;
     }
 
-    public void setPrioritaet_id(int prioritaet_id) {
-        this.prioritaet_id = prioritaet_id;
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.model.Priority;
@@ -21,7 +22,7 @@ public class Controller {
     public ListView<ToDo> toDoList;
 
     public TextField toDoTextField;
-    public Pane ContentPane;
+    public Pane contentPane;
 
     public void initialize() {
         refreshList();
@@ -68,5 +69,23 @@ public class Controller {
         s.setTitle("Priority");
         s.setScene(new Scene(root));
         s.show();
+    }
+
+    public void toDoListClicked(MouseEvent mouseEvent) {
+        ToDo selectedItem = toDoList.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ToDo.fxml"));
+                Pane todoPane = loader.load();
+
+                ToDoController controller = loader.getController();
+                controller.setSelectedItem(selectedItem);
+
+                contentPane.getChildren().add(todoPane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
