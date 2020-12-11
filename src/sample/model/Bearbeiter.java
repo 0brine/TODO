@@ -2,7 +2,8 @@ package sample.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.ToDo;
+import sample.model.db.AbstractDatabase;
+import sample.model.db.MySQLConnector;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
