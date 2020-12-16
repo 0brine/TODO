@@ -15,7 +15,7 @@ public class ToDoController {
     public ComboBox cbStatus;
     public ComboBox cbPriority;
     private ToDo selectedItem;
-    private ObservableList<ToDo> todoList;
+    //private ObservableList<ToDo> todoList;
 
     public void initialize() {
         displayItem();
@@ -37,8 +37,10 @@ public class ToDoController {
         }
 
     }
-
+/*
     public void setToDoList(ObservableList<ToDo> list) {
         this.todoList = list;
     }
+*/
+
 }

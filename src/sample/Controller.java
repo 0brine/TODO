@@ -82,7 +82,9 @@ public class Controller {
                 ToDoController controller = loader.getController();
                 controller.setSelectedItem(selectedItem);
 
-                controller.setToDoList(todoList.getItems());
+                //controller.setToDoList(todoList.getItems());
+
+
 
                 contentPane.getChildren().add(todoPane);
             } catch (IOException e) {
