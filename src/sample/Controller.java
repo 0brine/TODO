@@ -19,7 +19,7 @@ import java.io.IOException;
 public class Controller {
     public ComboBox<Status> statusComBox;
     public ComboBox<Priority> priorityComBox;
-    public ListView<ToDo> toDoList;
+    public ListView<ToDo> todoList;
 
     public TextField toDoTextField;
     public Pane contentPane;
@@ -39,7 +39,7 @@ public class Controller {
     }
 
     private void refreshList() {
-        toDoList.setItems(ToDo.getList());
+        todoList.setItems(ToDo.getList());
     }
 
 
@@ -72,7 +72,7 @@ public class Controller {
     }
 
     public void toDoListClicked(MouseEvent mouseEvent) {
-        ToDo selectedItem = toDoList.getSelectionModel().getSelectedItem();
+        ToDo selectedItem = todoList.getSelectionModel().getSelectedItem();
 
         if (selectedItem != null) {
             try {
@@ -82,6 +82,8 @@ public class Controller {
                 ToDoController controller = loader.getController();
                 controller.setSelectedItem(selectedItem);
 
+                controller.setToDoList(todoList.getItems());
+
                 contentPane.getChildren().add(todoPane);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -89,3 +91,4 @@ public class Controller {
         }
     }
 }
+
