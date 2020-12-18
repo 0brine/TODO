@@ -1,15 +1,7 @@
 package sample.model;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.Constants;
 import sample.SQLs;
-import sample.model.db.AbstractDatabase;
-import sample.model.db.MySQLConnector;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Status {
 
@@ -47,7 +39,7 @@ public class Status {
     }
 
     public void rename(String name) {
-        SQLs.updateStatus(name, this.id);
+        SQLs.updateStatus(this.id, name);
     }
 
     public void deleteItem() {

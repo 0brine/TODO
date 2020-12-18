@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.model.Priority;
 import sample.model.Status;
+import sample.model.ToDo;
 import sample.model.db.AbstractDatabase;
 
 import java.sql.PreparedStatement;
@@ -55,7 +56,7 @@ public class SQLs {
         return result;
     }
 
-    public static void updateStatus(String newName, int id) {
+    public static void updateStatus(int id, String newName) {
         try {
             PreparedStatement statement = conn.getConnection().prepareStatement("UPDATE `gr8_Status` SET `name` = '" + newName + "' WHERE `gr8_Status`.`status_id` = " + id);
 
@@ -124,7 +125,7 @@ public class SQLs {
         return list;
     }
 
-    public static void updatePriority(String name, int id) {
+    public static void updatePriority(int id, String name) {
         try {
             PreparedStatement statement = conn.getConnection().prepareStatement("UPDATE `gr8_Prioritaet` SET `name` = '" + name + "' WHERE `gr8_Prioritaet`.`prioritaet_id` = " + id);
 
@@ -147,6 +148,75 @@ public class SQLs {
     public static void insertPriority(String name) {
         try {
             PreparedStatement statement = conn.getConnection().prepareStatement("INSERT INTO `gr8_Prioritaet` (`name`) VALUES ('" + name + "')");
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // --------- ToDos ---------
+
+    public static ToDo getToDo(int id) {
+        ToDo result = null;
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT * FROM gr8_ToDo WHERE todo_id = " + id);
+            ResultSet results = statement.executeQuery();
+
+            results.next();
+            result = new ToDo(results.getInt("todo_id"), results.getString("name"), results.getString("beschreibung"), results.getInt("status_id"), results.getInt("prioritaet_id"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ObservableList<ToDo> getToDoList() {
+        ObservableList<ToDo> list = FXCollections.observableArrayList();
+
+        AbstractDatabase conn = Constants.getConn();
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT * FROM gr8_ToDo");
+
+            ResultSet results = statement.executeQuery();
+
+            while (results.next()) {
+                ToDo tmp = new ToDo(results.getInt("todo_id"), results.getString("name"), results.getString("beschreibung"), results.getInt("status_id"), results.getInt("prioritaet_id"));
+
+                list.add(tmp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static void updateToDo(int id, String name, String description, int priorityID, int statusID) {
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("UPDATE `gr8_ToDo` SET `name` = '" + name + "',`beschreibung` = '" + description + "' , `prioritaet_id` = " + priorityID + ", `status_id` = " + statusID + " WHERE `gr8_ToDo`.`todo_id` = " + id);
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteToDo(int id) {
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("DELETE FROM `gr8_ToDo` WHERE `gr8_ToDo`.`todo_id` = " + id);
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void insertToDo(String name, String beschreibung, int prioritaet_id, int status_id) {
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("INSERT INTO `gr8_ToDo` (`name`) VALUES ('" + name + "', '" + beschreibung + "', " + prioritaet_id + ", " + status_id + ")");
 
             statement.execute();
         } catch (SQLException e) {

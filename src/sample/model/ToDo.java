@@ -1,60 +1,42 @@
 package sample.model;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.Constants;
 import sample.SQLs;
-import sample.model.db.AbstractDatabase;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class ToDo {
     private int id;
     private String name;
-    private String beschreibung;
+    private String description;
     private Status status;
     private Priority priority;
 
-    public ToDo(int id, String name, String beschreibung, int status_id, int prioritaet_id) {
+    public ToDo(int id, String name, String description, int status_id, int prioritaet_id) {
         this.id = id;
         this.name = name;
-        this.beschreibung = beschreibung;
+        this.description = description;
         this.status = SQLs.getStatus(status_id);
         this.priority = SQLs.getPriority(prioritaet_id);
     }
 
     public static ObservableList<ToDo> getList() {
-        ObservableList<ToDo> list = FXCollections.observableArrayList();
+        return SQLs.getToDoList();
+    }
 
-        AbstractDatabase conn = Constants.getConn();
-        try {
-            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT * FROM gr8_ToDo");
+    public void change(String name, String description, int priorityID, int statusID) {
+        SQLs.updateToDo(this.id, name, description, priorityID, statusID);
+    }
 
-            ResultSet results = statement.executeQuery();
+    public void deleteItem() {
+        SQLs.deleteToDo(this.id);
+    }
 
-            while (results.next()) {
-                ToDo tmp = new ToDo(results.getInt("todo_id"), results.getString("name"), results.getString("beschreibung"), results.getInt("status_id"), results.getInt("prioritaet_id"));
-
-                list.add(tmp);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return list;
+    public static void createNew(String name, String description, int priorityID, int statusID) {
+        SQLs.insertToDo(name, description, priorityID, statusID);
     }
 
     @Override
     public String toString() {
-        return "ToDo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", beschreibung='" + beschreibung + '\'' +
-                ", status=" + status +
-                ", priority=" + priority +
-                '}';
+        return name;
     }
 
     public int getId() {
@@ -73,12 +55,12 @@ public class ToDo {
         this.name = name;
     }
 
-    public String getBeschreibung() {
-        return beschreibung;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Status getStatus() {

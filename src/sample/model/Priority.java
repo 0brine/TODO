@@ -33,7 +33,7 @@ public class Priority {
     }
 
     public void rename(String name) {
-        SQLs.updatePriority(name, this.id);
+        SQLs.updatePriority(this.id, name);
     }
 
     public void deleteItem() {

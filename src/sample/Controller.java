@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.model.Priority;
@@ -19,27 +20,40 @@ import java.io.IOException;
 public class Controller {
     public ComboBox<Status> statusComBox;
     public ComboBox<Priority> priorityComBox;
-    public ListView<ToDo> todoList;
+    public ListView<ToDo> toDoList;
 
     public TextField toDoTextField;
-    public Pane contentPane;
+    public AnchorPane contentPane;
+
+    private ToDoController ToDocontroller;
 
     public void initialize() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ToDo.fxml"));
+        Pane todoPane = null;
+        try {
+            todoPane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ToDocontroller = loader.getController();
+        contentPane.getChildren().add(todoPane);
+
         refreshList();
         refreshPriority();
         refreshStatus();
+        selectNone();
     }
 
-    private void refreshStatus() {
+    public void refreshStatus() {
         statusComBox.setItems(Status.getList());
     }
 
-    private void refreshPriority() {
+    public void refreshPriority() {
         priorityComBox.setItems(Priority.getList());
     }
 
-    private void refreshList() {
-        todoList.setItems(ToDo.getList());
+    public void refreshList() {
+        toDoList.setItems(ToDo.getList());
     }
 
 
@@ -72,25 +86,31 @@ public class Controller {
     }
 
     public void toDoListClicked(MouseEvent mouseEvent) {
-        ToDo selectedItem = todoList.getSelectionModel().getSelectedItem();
+        ToDo selectedItem = toDoList.getSelectionModel().getSelectedItem();
 
         if (selectedItem != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ToDo.fxml"));
-                Pane todoPane = loader.load();
-
-                ToDoController controller = loader.getController();
-                controller.setSelectedItem(selectedItem);
-
-                //controller.setToDoList(todoList.getItems());
-
-
-
-                contentPane.getChildren().add(todoPane);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            openToDo(selectedItem);
         }
     }
-}
 
+    public void selectNone() {
+        toDoList.getSelectionModel().clearSelection();
+        contentPane.setVisible(false);
+        refreshList();
+    }
+
+    public void acAdd(ActionEvent actionEvent) {
+        toDoList.getSelectionModel().clearSelection();
+        contentPane.setVisible(false);
+        refreshList();
+
+
+    }
+
+    private void openToDo(ToDo selectedItem) {
+        ToDocontroller.setSelectedItem(selectedItem);
+        ToDocontroller.setParent(this);
+
+        contentPane.setVisible(true);
+    }
+}
